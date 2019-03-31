@@ -13,14 +13,7 @@ export default class Home extends React.Component {
     }
 
     _fetchIssuesList() {
-        api
-            .fetchIssues()
-            .then(res => {
-                this.setState({ issuesList: res.data.results })
-            })
-            .catch(err => {
-                console.error("fetchIssues err: ", err)
-            })
+        this.props.getIssuesList()
     }
 
     _onIssueTapped = issue => {
@@ -34,7 +27,7 @@ export default class Home extends React.Component {
     )
 
     render() {
-        const { issuesList } = this.state
+        const { issuesList } = this.props
         return (
             <SafeAreaView style={styles.container}>
                 <FlatList
