@@ -10,6 +10,5 @@ export function configureAxios() {
 
 export function fetchIssues(params) {
     const url = `/issues/?api_key=${API_KEY}&format=json&sort=store_date:desc&` + qs.stringify(params, { skipNulls: true })
-    console.log(url)
     return axios.get(url)
 }

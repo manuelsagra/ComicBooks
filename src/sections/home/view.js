@@ -1,5 +1,6 @@
 import React from 'react'
-import { SafeAreaView, FlatList, RefreshControl, Text } from 'react-native'
+import { SafeAreaView, View, FlatList, RefreshControl, Text, ActivityIndicator } from 'react-native'
+import Spinner from 'react-native-spinkit'
 import styles from './styles'
 import * as colors from '../../commons/colors'
 //import { Actions } from 'react-native-router-flux'
@@ -37,6 +38,17 @@ export default class Home extends React.Component {
         />
     )
 
+    _renderFooter = (isFetching) => {
+        if (isFetching) {
+            return (
+                <View style={styles.loading}>
+                    <Spinner color={colors.white} size={40} type={'Wave'} />
+                </View>
+            )
+        }
+        return null 
+    }
+
     _renderNoResultsText = () => {
         const { isFetching } = this.props
         if (isFetching) {
@@ -57,6 +69,7 @@ export default class Home extends React.Component {
                     renderItem={this._renderItem}
                     numColumns={2}
                     ListEmptyComponent={this._renderNoResultsText}
+                    ListFooterComponent={_ => this._renderFooter(isFetching)}
                     onEndReached={this._onEndReached}
                     onEndReachedThreshold={0.8}
                     refreshControl={

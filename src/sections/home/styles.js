@@ -6,8 +6,15 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: colors.main
     },
+    loading: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 100
+    },
     noResultsText: {
         textAlign: 'center',
+        margin: 20,
+        fontSize: 18,
         color: colors.white
     }
 })
