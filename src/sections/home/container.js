@@ -5,14 +5,18 @@ import * as IssuesActions from '../../redux/issues/actions'
 const mapStateToProps = state => {
     return {
         issuesList: state.issues.list,
+        issuesTotal: state.issues.total,
         isFetching: state.issues.isFetching
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        getIssuesList: () => {
-            dispatch(IssuesActions.fetchIssuesList())
+        initIssuesList: () => {
+            dispatch(IssuesActions.initIssuesList())
+        },
+        updateIssuesListOffset: () => {
+            dispatch(IssuesActions.updateIssuesListOffset())
         }
     }
 }

@@ -5,5 +5,9 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.main
+    },
+    noResultsText: {
+        textAlign: 'center',
+        color: colors.white
     }
 })

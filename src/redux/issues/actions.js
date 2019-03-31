@@ -1,22 +1,67 @@
 import * as types from './types'
 import * as api from '../../webservices'
 
-function updateIssuesList(list) {
+const LIMIT = 10
+
+function updateList(list, total) {
     return {
         type: types.ISSUES_UPDATE_LIST,
-        list
+        list,
+        total
+    }
+}
+
+function updateFetching(value) {
+    return {
+        type: types.ISSUES_UPDATE_FETCHING,
+        value
+    }
+}
+
+function updateOffset(value) {
+    return {
+        type: types.ISSUES_UPDATE_OFFSET,
+        value
+    }
+}
+
+export function initIssuesList() {
+    return function(dispatch, getState) {
+        dispatch(updateList([], 0))
+        dispatch(updateOffset(0))
+        dispatch(fetchIssuesList())
+    }
+}
+
+export function updateIssuesListOffset() {
+    return function(dispatch, getState) {
+        const offset = getState().issues.offset + LIMIT
+        dispatch(updateOffset(offset))
+        dispatch(fetchIssuesList())
     }
 }
 
 export function fetchIssuesList() {
     return function(dispatch, getState) {
-        api.fetchIssues()
+        dispatch(updateFetching(true))
+
+        const { offset, list } = getState().issues
+        const params = {
+            offset,
+            limit: LIMIT
+        }
+
+        api.fetchIssues(params)
             .then(res => {
-                const list = res.data.results
-                dispatch(updateIssuesList(list))
+                const newList = [...list, ...res.data.results]
+                const total = res.data.number_of_total_results
+                dispatch(updateList(newList, total))
             })
             .catch(err => {
                 console.error('fetchIssues err: ', err)
             })
+            .finally(_ => 
+                dispatch(updateFetching(false))    
+            )
     }
 }
