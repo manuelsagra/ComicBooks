@@ -12,3 +12,8 @@ export function fetchIssues(params) {
     const url = `/issues/?api_key=${API_KEY}&format=json&sort=store_date:desc&` + qs.stringify(params, { skipNulls: true })
     return axios.get(url)
 }
+
+export function fetchIssue(id) {
+    const url = `/issue/${id}?api_key=${API_KEY}&format=json`
+    return axios.get(url)
+}

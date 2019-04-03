@@ -2,6 +2,7 @@ import * as types from './types'
 
 const initialState = {
     list: [],
+    issue: null,
     total: 0,
     isFetching: false,
     offset: 0
@@ -14,6 +15,12 @@ export default function reducer(state = initialState, action = {}) {
                 ...state,
                 list: action.list,
                 total: action.total
+            }
+
+        case types.ISSUES_UPDATE_ISSUE:
+            return {
+                ...state,
+                issue: action.issue
             }
 
         case types.ISSUES_UPDATE_FETCHING:

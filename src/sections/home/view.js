@@ -3,8 +3,7 @@ import { SafeAreaView, View, FlatList, RefreshControl, Text, ActivityIndicator }
 import Spinner from 'react-native-spinkit'
 import styles from './styles'
 import * as colors from '../../commons/colors'
-//import { Actions } from 'react-native-router-flux'
-import * as api from '../../webservices'
+import { Actions } from 'react-native-router-flux'
 import { IssueCell } from '../../widgets'
 
 export default class Home extends React.Component {
@@ -28,7 +27,10 @@ export default class Home extends React.Component {
     }
 
     _onIssueTapped = issue => {
-        alert("_onIssueTapped")
+        const title = `${issue.volume.name} ${issue.name}`
+        const detail = issue.api_detail_url
+        const id = detail.substring(detail.indexOf('/issue/') + 7, detail.length - 1)
+        Actions.Issue({ title, id });
     }
 
     _renderItem = ({ item, index }) => (

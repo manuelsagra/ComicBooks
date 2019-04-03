@@ -11,6 +11,13 @@ function updateList(list, total) {
     }
 }
 
+function updateIssue(issue) {
+    return {
+        type: types.ISSUES_UPDATE_ISSUE,
+        issue
+    }
+}
+
 function updateFetching(value) {
     return {
         type: types.ISSUES_UPDATE_FETCHING,
@@ -59,6 +66,24 @@ export function fetchIssuesList() {
             })
             .catch(err => {
                 console.error('fetchIssues err: ', err)
+            })
+            .finally(_ => 
+                dispatch(updateFetching(false))    
+            )
+    }
+}
+
+export function fetchIssue(id) {
+    return function(dispatch, getState) {
+        dispatch(updateFetching(true))
+
+        api.fetchIssue(id)
+            .then(res => {
+                const issue = res.data.results
+                dispatch(updateIssue(issue))
+            })
+            .catch(err => {
+                console.error('fetchIssue err: ', err)
             })
             .finally(_ => 
                 dispatch(updateFetching(false))    
