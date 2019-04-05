@@ -1,12 +1,13 @@
 import React from 'react'
 import { SafeAreaView, View, Text, Image, ScrollView, Linking } from 'react-native'
+import { Actions } from 'react-native-router-flux';
 import HTML from 'react-native-render-html'
 import Spinner from 'react-native-spinkit'
 import { Button } from '../../widgets'
-
 import styles from './styles'
 import * as colors from '../../commons/colors'
 import _ from 'lodash'
+
 
 export default class Issue extends React.Component {
     constructor(props) {
@@ -22,6 +23,12 @@ export default class Issue extends React.Component {
                 Linking.openURL(url)
             }
         })
+    }
+
+    _shareIssue = () => {
+        const { issue } = this.props
+        const subject = `Cómic interesante: ${issue.volume.name} ${issue.name}`
+        Actions.Share({ subject, issue })
     }
 
     render() {
@@ -70,6 +77,7 @@ export default class Issue extends React.Component {
                     </ScrollView>    
                     <View style={styles.issueButtons}>
                         <Button label={'Ver ficha en ComicVine'} onPress={this._handleClick} />
+                        <Button label={'Compartir por e-mail'} onPress={this._shareIssue} />
                     </View>     
                 </SafeAreaView>
             )

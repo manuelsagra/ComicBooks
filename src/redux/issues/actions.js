@@ -1,5 +1,7 @@
 import * as types from './types'
 import * as api from '../../webservices'
+import { Actions } from 'react-native-router-flux'
+import { Linking } from 'react-native'
 
 const LIMIT = 10
 
@@ -88,5 +90,19 @@ export function fetchIssue(id) {
             .finally(_ => 
                 dispatch(updateFetching(false))    
             )
+    }
+}
+
+export function shareIssue(data) {
+    return function(dispatch, getState) {
+        const url = `mailto:${data.to}?subject=${data.subject}&body=${data.text}`
+        Linking.canOpenURL(url).then(supported => {
+            if (supported) {
+                Linking.openURL(url)
+            } else {
+                console.log('Cannot send email!')
+            }
+        })
+        Actions.pop()
     }
 }
