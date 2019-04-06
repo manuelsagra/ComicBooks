@@ -15,7 +15,7 @@ export default class IssueCell extends React.Component {
 
     render() {
         const { issue } = this.props
-        const source = issue && issue.image.medium_url ? { uri: issue.image.medium_url } : null
+        const source = issue && issue.image.small_url ? { uri: issue.image.small_url } : null
         return (
             <TouchableOpacity
                 onPress={() => this._onCellTapped()}

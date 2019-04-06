@@ -27,7 +27,7 @@ export default class Issue extends React.Component {
 
     render() {
         return (
-            <SafeAreaView>
+            <SafeAreaView style={styles.container}>
                 <ScrollView style={styles.shareForm}>
                     <Input
                         label={'Para'}
@@ -43,7 +43,7 @@ export default class Issue extends React.Component {
                     <Input
                         label={'Cuerpo'}
                         value={this.state.text}
-                        inputStyle={{ height: 400 }}
+                        inputStyle={{ height: 300 }}
                         multiline={true}
                         onChangeText={text => this.setState({ text })}
                     />

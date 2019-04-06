@@ -76,7 +76,7 @@ export default class Home extends React.Component {
                     onEndReachedThreshold={0.8}
                     refreshControl={
                         <RefreshControl
-                            onRefresh={this.props.getIssuesList}
+                            onRefresh={this.props.initIssuesList}
                             refreshing={isFetching}
                             tintColor={colors.white}
                             colors={[colors.white]}
